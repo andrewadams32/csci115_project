@@ -286,7 +286,7 @@ int main(int argc, char** argv){
 
     //initialize csv file for output
     const std::string fileName = "out.csv";
-    csvfile outFile(fileName, ",");
+    csvfile outFile(fileName);
     std::string input = "r";
     char op;
 

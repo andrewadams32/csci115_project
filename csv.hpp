@@ -17,7 +17,7 @@ class csvfile
     const std::string escape_seq_;
     const std::string special_chars_;
 public:
-    csvfile(const std::string filename, const std::string separator = ";")
+    csvfile(const std::string filename, const std::string separator = ",")
         : fs_()
         , is_first_(true)
         , separator_(separator)
