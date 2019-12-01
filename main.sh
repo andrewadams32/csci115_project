@@ -7,4 +7,4 @@ if (( $# > 0 ))
 fi
 g++ Sorts.cpp -o sorts
 ./sorts $sort
-python Sorts.py
+python sorts.py

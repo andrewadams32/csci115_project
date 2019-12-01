@@ -221,7 +221,7 @@ void Run_All(csvfile& outFile, int n, char op){
                 a[n-i] = i;
             break;
         case 's':
-            for(i = 0; i <= n; ++i){
+            for(i = 0; i <= n; ++i)
                 a[i] = i;
             break;
         case 'r':
@@ -233,7 +233,6 @@ void Run_All(csvfile& outFile, int n, char op){
         default:
             std::cout << "invalid argument passed\n";
             exit(-1);
-    }
     }
 
     //copy a to b so we can reuse a for all algorithms
