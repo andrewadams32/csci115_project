@@ -9,3 +9,5 @@ Each algorithm will receive exactly the same input array to ensure a level playi
 Number of comparisons is counted by creating an int wrapper and overloading the comparison operators to count how many times they are called
 
 Time taken is recorded by initializing a clock before each algorithm starts and subtracting that time from the time recorded directly after the sorting is complete.
+
+#### Assumes that you gave g++ installed, python, and a few python packages (matplotlib, numpy, and pandas)
