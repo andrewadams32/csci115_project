@@ -28,12 +28,12 @@ c_QS = to_int_list(QS['Comparisons'].values)
 c_HS = to_int_list(HS['Comparisons'].values)
 
 #get time taken for each algorithm
-t_IS = to_int_list(IS['Time(ms)'].values)
-t_SS = to_int_list(SS['Time(ms)'].values)
-t_BS = to_int_list(BS['Time(ms)'].values)
-t_MS = to_int_list(MS['Time(ms)'].values)
-t_QS = to_int_list(QS['Time(ms)'].values)
-t_HS = to_int_list(HS['Time(ms)'].values)
+t_IS = to_int_list(IS['Time(mu)'].values)
+t_SS = to_int_list(SS['Time(mu)'].values)
+t_BS = to_int_list(BS['Time(mu)'].values)
+t_MS = to_int_list(MS['Time(mu)'].values)
+t_QS = to_int_list(QS['Time(mu)'].values)
+t_HS = to_int_list(HS['Time(mu)'].values)
 
 #get list of input sizes used
 Number = to_int_list(IS['Number'])
@@ -43,12 +43,12 @@ ax1=plt.subplot(1,2,1)
 ax2=plt.subplot(1,2,2)
 
 #plot list of input sizes as x-axis and comparison count as y axis for each algorithm
-ax1.plot(Number, c_IS, label="Insertion", linewidth=5)
-ax1.plot(Number, c_SS, label="Selection", linewidth=5)
-ax1.plot(Number, c_BS, label="Bubble", linewidth=5)
-ax1.plot(Number, c_MS, label="Merge", linewidth=5)
-ax1.plot(Number, c_QS, label="Quick", linewidth=5)
-ax1.plot(Number, c_HS, label="Heap", linewidth=5)
+ax1.plot(Number, c_IS, label="Insertion", linewidth=3)
+ax1.plot(Number, c_SS, label="Selection", linewidth=3)
+ax1.plot(Number, c_BS, label="Bubble", linewidth=3)
+ax1.plot(Number, c_MS, label="Merge", linewidth=3)
+ax1.plot(Number, c_QS, label="Quick", linewidth=3)
+ax1.plot(Number, c_HS, label="Heap", linewidth=3)
 
 #label graph
 ax1.grid(True)
@@ -57,16 +57,16 @@ ax1.set_xlabel("Input Size")
 ax1.legend(loc="upper left", fontsize="xx-large")
 
 #plot list of input sizes as x-axis and time taken as y axis for each algorithm
-ax2.plot(Number, t_IS, label="Insertion", linewidth=5)
-ax2.plot(Number, t_SS, label="Selection", linewidth=5)
-ax2.plot(Number, t_BS, label="Bubble", linewidth=5)
-ax2.plot(Number, t_MS, label="Merge", linewidth=5)
-ax2.plot(Number, t_QS, label="Quick", linewidth=5)
-ax2.plot(Number, t_HS, label="Heap", linewidth=5)
+ax2.plot(Number, t_IS, label="Insertion", linewidth=3)
+ax2.plot(Number, t_SS, label="Selection", linewidth=3)
+ax2.plot(Number, t_BS, label="Bubble", linewidth=3)
+ax2.plot(Number, t_MS, label="Merge", linewidth=3)
+ax2.plot(Number, t_QS, label="Quick", linewidth=3)
+ax2.plot(Number, t_HS, label="Heap", linewidth=3)
 
 #label graph
 ax2.grid(True)
-ax2.set_ylabel("Time(ms)")
+ax2.set_ylabel("Time(mu)")
 ax2.set_xlabel("Input Size")
 ax2.legend(loc="upper left", fontsize="xx-large")
 
