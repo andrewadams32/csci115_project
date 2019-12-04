@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 if os.environ.get('DISPLAY','') == '':
-    print('no display found. Using non-interactive Agg backend')
     plt.use('Agg')
 import numpy as np
 
