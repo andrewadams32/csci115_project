@@ -6,5 +6,8 @@ if (( $# > 0 ))
     echo 'sorting with' $sort
 fi
 g++ Sorts.cpp -o sorts
+echo 'program compiled'
 ./sorts $sort
+echo 'prorgam ran'
 python sorts.py
+echo 'data graphed'

@@ -6,7 +6,6 @@
 //write to csv helper class (handles formatting output to csv)
 #include "csv.hpp"
 
-static int n = 1000;
 static int comp_count = 0;
 
 //Int class to replace int. Allows overloading operators to count operations done
@@ -240,46 +239,46 @@ void Run_All(csvfile& outFile, int n, char op){
 
     //Do Sorts and count Comparisons and record time
     clock_t total;
-    outFile << "Algorithm" << "Number" << "Comparisons" << "Time(ms)" << endrow; // csv file column names
+    outFile << "Algorithm" << "Number" << "Comparisons" << "Time(mu)" << endrow; // csv file column names
     clock_t time = clock();
     InsertionSort(b, n);
     total = clock() - time;
-    outFile << "InsertionSort" << n << comp_count << total << endrow;
+    outFile << "InsertionSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
     std::copy(a, a+n, b);
 
     time = clock();
     SelectionSort(b, n);
     total = clock() - time;
-    outFile << "SelectionSort" << n << comp_count << total << endrow;
+    outFile << "SelectionSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
     std::copy(a, a+n, b);
 
     time = clock();
     BubbleSort(b, n);
     total = clock() - time;
-    outFile << "BubbleSort" << n << comp_count << total << endrow;
+    outFile << "BubbleSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
     std::copy(a, a+n, b);
 
     time = clock();
     MergeSort(b, 0, n);
     total = clock() - time;
-    outFile << "MergeSort" << n << comp_count << total << endrow;
+    outFile << "MergeSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
     std::copy(a, a+n, b);
 
     time = clock();
     QuickSort(b, 0, n);
     total = clock() - time;
-    outFile << "QuickSort" << n << comp_count << total << endrow;
+    outFile << "QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
     std::copy(a, a+n, b);
 
     time = clock();
     HeapSort(b, n);
     total = clock() - time;
-    outFile << "HeapSort" << n << comp_count << total << endrow;
+    outFile << "HeapSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
 }
 int main(int argc, char** argv){
@@ -289,6 +288,7 @@ int main(int argc, char** argv){
     csvfile outFile(fileName);
     std::string input = "r";
     char op;
+    const int n = 1000;
 
     if(argc > 1){
         input = argv[1];
@@ -300,9 +300,8 @@ int main(int argc, char** argv){
         std::cout << "choose input type (r=random, s=sorted, b=backwards):";
         std::cin >> op;
     }
-
     try{
-        for(int i = 10; i <= n; i+=10){
+        for(int i = 100; i <= n; i+=20){
             Run_All(outFile, i, op);    // run all sorts, collecting efficiency data
             outFile << endrow;
         }
