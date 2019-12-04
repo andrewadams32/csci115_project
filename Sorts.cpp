@@ -7,6 +7,7 @@
 //write to csv helper class (handles formatting output to csv)
 #include "csv.hpp"
 
+//comparison counter and array access counter
 static int comp_count = 0;
 static int arr_access_count = 0;
 
@@ -17,38 +18,38 @@ struct Int{
     void operator=(const int val){value = val;};
     bool operator<=(const Int& b){
     //    std::cout << "comparing " << value << " <= " << b << "\n";
-        comp_count++;
+        ++comp_count;
         return value <= b.value;
     }
     bool operator<(const Int& b){
     //    std::cout << "comparing " << value << " < " << b << "\n";
-        comp_count++;
+        ++comp_count;
         return value < b.value;
     }
     bool operator<(const int b){
     //    std::cout << "comparing " << value << " < " << b << "\n";
-        comp_count++;
+        ++comp_count;
         return value < b;
     }
     bool operator>=(const Int& b){
     //    std::cout << "comparing " << value << " >= " << b << "\n";
-        comp_count++;
+        ++comp_count;
         return value >= b.value;
     }
     bool operator>=(const int b){
     //    std::cout << "comparing " << value << " >= " << b << "\n";
-        comp_count++;
+        ++comp_count;
         return value >= b;
     }
     bool operator>(const Int& b){
     //    std::cout << "comparing " << value << " > " << b << "\n";
-        comp_count++;
+        ++comp_count;
         return value > b.value;
     }
-    Int operator++(int){
+    Int operator++(){
         return Int(++value);
-    }    
-    Int operator--(int){
+    }
+    Int operator--(){
         return Int(--value);
     }
     Int operator+(const Int& b){
@@ -86,7 +87,7 @@ inline void swap(Int& a, Int& b){
 }
 void PrintArray(Int* a, Int n){
     std::cout << "Arr: \n";
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < n; ++i){
         std::cout << a[i] << " ";
     }
 }
@@ -95,12 +96,12 @@ void PrintArray(Int* a, Int n){
 //-------------------------------
 void InsertionSort(Int* a, Int n){
     Int key, i;
-    for(Int j = 1; j < n; j++){
+    for(Int j = 1; j < n; ++j){
         key = a[j];
         i = j - 1;
         while(i >= 0 && a[i] > key){
             a[i+1] = a[i];
-            i--;
+            --i;
         }
         a[i+1] = key;
     }
@@ -108,9 +109,9 @@ void InsertionSort(Int* a, Int n){
 //--------------------------------
 void SelectionSort(Int* a, Int n){
     Int smallest;
-    for(Int j = 0; j < n-1; j++){
+    for(Int j = 0; j < n-1; ++j){
         smallest = j;
-        for(Int i = j+1; i < n; i++){
+        for(Int i = j+1; i < n; ++i){
             if(a[i] < a[smallest]){
                 smallest = i;
             }
@@ -120,8 +121,8 @@ void SelectionSort(Int* a, Int n){
 }
 //---------------------------------------------
 void BubbleSort(Int* a, Int n){
-    for(Int i = 0; i < n; i++){
-        for(Int j = n-1; j > i; j--){
+    for(Int i = 0; i < n; ++i){
+        for(Int j = n-1; j > i; --j){
             if(a[j] < a[j-1]) swap(a[j], a[j-1]);
         }
     }
@@ -132,21 +133,21 @@ void merge(Int* arr, Int l, Int m, Int r){
     Int ms=0,ls=l,rs=m+1;
     while(true){
         if(arr[ls]<=arr[rs]) 
-            temp_arr[ms++] = arr[ls++];
+            temp_arr[++ms] = arr[++ls];
         else if(arr[ls]>arr[rs]) 
-            temp_arr[ms++] = arr[rs++];
+            temp_arr[++ms] = arr[++rs];
         if(ls>m) {
             while(rs<=r) 
-                temp_arr[ms++]=arr[rs++]; 
+                temp_arr[++ms]=arr[++rs]; 
             break;
         }
         else if(rs>r) {
             while(ls<=m) 
-                temp_arr[ms++]=arr[ls++]; 
+                temp_arr[++ms]=arr[++ls]; 
             break;
         }
     }
-    for(Int i=0;i<r-l+1;i++) {
+    for(Int i=0;i<r-l+1;++i) {
         arr[i+l] = temp_arr[i]; 
     }
 }
@@ -162,9 +163,9 @@ void MergeSort(Int* a, Int lo, Int hi){
 Int Partition(Int* a, Int p, Int r) { 
     Int pivot = a[r];
     Int i = (p - 1);
-    for (Int j = p; j <= r- 1; j++) {
+    for (Int j = p; j <= r- 1; ++j) {
         if (a[j] <= pivot) { 
-            i++;
+            ++i;
             swap(a[i], a[j]); 
         } 
     } 
@@ -226,10 +227,10 @@ void Max_Heapify(Int* a, Int i, Int n){
     }
 }
 void HeapSort(Int* a, Int n){
-   for(Int i = n/2 -1; i >= 0; i--){
+   for(Int i = n/2 -1; i >= 0; --i){
        Max_Heapify(a, i, n);
    }
-   for(Int i = n-1; i >= 0; i--){
+   for(Int i = n-1; i >= 0; --i){
        swap(a[0], a[i]);
        Max_Heapify(a, 0, i);
    }
