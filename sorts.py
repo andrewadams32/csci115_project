@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 if os.environ.get('DISPLAY','') == '':
-    plt.use('Agg')
+    plt.switch_backend('Agg')
 import numpy as np
 
 #get relative path of csv data file
