@@ -67,7 +67,7 @@ struct Int{
     Int operator%(const Int& b){
         return Int(value % b.value);
     }
-    operator int() {
+    operator int() { // when Int is implicitly converted to int (only done during array accessing)
         arr_access_count++;
         return value;
     }
@@ -266,7 +266,6 @@ void Run_All(csvfile& outFile, int n, char op){
 
     //Do Sorts and count Comparisons and record Time
     clock_t total;
-    outFile << "Algorithm" << "Number" << "Comparisons" << "Accesses" << "Time(ms)" << endrow; // csv file column names
     clock_t time = clock();
     InsertionSort(b, n);
     total = clock() - time;
@@ -349,9 +348,9 @@ int main(int argc, char** argv){
         std::cin >> op;
     }
     try{
+        outFile << "Algorithm" << "Number" << "Comparisons" << "Accesses" << "Time(ms)" << endrow; // csv file column names
         for(int i = 100; i <= n; i+=100){
             Run_All(outFile, i, op);    // run all sorts, collecting efficiency data
-            outFile << endrow;
         }
     } catch(std::exception& e){ // error handling
         std::cout << "error opening file " << e.what();
