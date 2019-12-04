@@ -2,6 +2,7 @@
 #include <fstream>
 #include <ctime>
 #include <string>
+#include <algorithm>
 
 //write to csv helper class (handles formatting output to csv)
 #include "csv.hpp"
@@ -243,27 +244,26 @@ void HeapSort(Int* a, Int n){
 void Run_All(csvfile& outFile, int n, char op){
     srand(time(0));
     Int a[n], b[n];
+
+    for(int i = 0; i < n; ++i){
+        a[i] = rand() % 100 + 1;
+    } // fill a with random values
     switch(op){
         int i;
         case 'b':
-            for(i = 0; i <= n; ++i)
-                a[n-i] = i;
+            std::sort(a, a+n, [](Int& a, Int& b){return a > b;}); // backwards sort
             break;
         case 's':
-            for(i = 0; i <= n; ++i)
-                a[i] = i;
+            std::sort(a, a+n); // regular sort
             break;
         case 'r':
-            for(i = 0; i < n; ++i){
-                Int t = (rand() % 100 + 1);
-                a[i] = t;
-            }
-            break;
+            break; // keep randomized
         default:
             std::cout << "invalid argument passed\n";
             exit(-1);
     }
 
+    comp_count = 0; // reset to zero since above setup will rack up some comparisons for insertionsort
     //copy a to b so we can reuse a for all algorithms
     std::copy(a, a+n, b);
 
@@ -332,7 +332,7 @@ int main(int argc, char** argv){
     csvfile outFile(fileName);
     std::string input = "r";
     char op;
-    const int n = 1000;
+    const int n = 5000;
 
     if(argc > 1){
         input = argv[1];
@@ -345,7 +345,7 @@ int main(int argc, char** argv){
         std::cin >> op;
     }
     try{
-        for(int i = 100; i <= n; i+=20){
+        for(int i = 100; i <= n; i+=100){
             Run_All(outFile, i, op);    // run all sorts, collecting efficiency data
             outFile << endrow;
         }
