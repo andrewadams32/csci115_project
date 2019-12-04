@@ -179,13 +179,43 @@ Int R_Partition(Int* a, Int p, Int r){
     swap(a, i, p);
     return Partition(a, p, r);
 }
-
-void QuickSort(Int* a, Int p, Int r){
-    if(p < r){
-        Int q = R_Partition(a, p, r);
-        QuickSort(a, p, q - 1);
-        QuickSort(a, q + 1, r);
+Int median_partition(Int a[], Int lo, Int hi){
+    swap(a, (hi-lo)/2 + lo, lo);
+    return Partition(a, lo, hi);
+}
+Int min_partition(Int a[], Int lo, Int hi){
+    return Partition(a, lo, hi);
+}
+void min_QSort(Int* a, Int p, Int r){
+        if(p < r){
+        Int q = min_partition(a, p, r);
+        min_QSort(a, p, q - 1);
+        min_QSort(a, q + 1, r);
     }
+}
+void med_QSort(Int* a, Int p, Int r){
+        if(p < r){
+        Int q = median_partition(a, p, r);
+        med_QSort(a, p, q - 1);
+        med_QSort(a, q + 1, r);
+    }
+}
+void rand_QSort(Int* a, Int p, Int r){
+        if(p < r){
+        Int q = R_Partition(a, p, r);
+        rand_QSort(a, p, q - 1);
+        rand_QSort(a, q + 1, r);
+    }
+}
+
+void QuickSort(Int* a, Int p, Int r, const char* type){
+    if(type == "min")
+        min_QSort(a, p, r);
+    else if(type == "med")
+        med_QSort(a, p, r);
+    else if(type == "rand")
+        rand_QSort(a, p, r);
+    else exit(-1);
 }
 //--------------------------------------
 void Max_Heapify(Int* a, Int i, Int n){
@@ -269,9 +299,23 @@ void Run_All(csvfile& outFile, int n, char op){
     std::copy(a, a+n, b);
 
     time = clock();
-    QuickSort(b, 0, n);
+    QuickSort(b, 0, n, "min");
     total = clock() - time;
-    outFile << "QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
+    outFile << "Min_QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
+    comp_count = 0;
+    std::copy(a, a+n, b);
+
+    time = clock();
+    QuickSort(b, 0, n, "med");
+    total = clock() - time;
+    outFile << "Median_QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
+    comp_count = 0;
+    std::copy(a, a+n, b);
+
+    time = clock();
+    QuickSort(b, 0, n, "rand");
+    total = clock() - time;
+    outFile << "Random_QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
     std::copy(a, a+n, b);
 

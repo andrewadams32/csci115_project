@@ -18,7 +18,9 @@ IS = data[data['Algorithm'] == 'InsertionSort']
 SS = data[data['Algorithm'] == 'SelectionSort']
 BS = data[data['Algorithm'] == 'BubbleSort']
 MS = data[data['Algorithm'] == 'MergeSort']
-QS = data[data['Algorithm'] == 'QuickSort']
+minQS = data[data['Algorithm'] == 'Min_QuickSort']
+medQS = data[data['Algorithm'] == 'Median_QuickSort']
+randQS = data[data['Algorithm'] == 'Random_QuickSort']
 HS = data[data['Algorithm'] == 'HeapSort']
 
 #get comparison count of each algorithm
@@ -26,7 +28,9 @@ c_IS = to_int_list(IS['Comparisons'].values)
 c_SS = to_int_list(SS['Comparisons'].values)
 c_BS = to_int_list(BS['Comparisons'].values)
 c_MS = to_int_list(MS['Comparisons'].values)
-c_QS = to_int_list(QS['Comparisons'].values)
+c_minQS = to_int_list(minQS['Comparisons'].values)
+c_medQS = to_int_list(medQS['Comparisons'].values)
+c_randQS = to_int_list(randQS['Comparisons'].values)
 c_HS = to_int_list(HS['Comparisons'].values)
 
 #get time taken for each algorithm
@@ -34,7 +38,9 @@ t_IS = to_int_list(IS['Time(mu)'].values)
 t_SS = to_int_list(SS['Time(mu)'].values)
 t_BS = to_int_list(BS['Time(mu)'].values)
 t_MS = to_int_list(MS['Time(mu)'].values)
-t_QS = to_int_list(QS['Time(mu)'].values)
+t_minQS = to_int_list(minQS['Time(mu)'].values)
+t_medQS = to_int_list(medQS['Time(mu)'].values)
+t_randQS = to_int_list(randQS['Time(mu)'].values)
 t_HS = to_int_list(HS['Time(mu)'].values)
 
 #get list of input sizes used
@@ -49,7 +55,9 @@ ax1.plot(Number, c_IS, label="Insertion", linewidth=3)
 ax1.plot(Number, c_SS, label="Selection", linewidth=3)
 ax1.plot(Number, c_BS, label="Bubble", linewidth=3)
 ax1.plot(Number, c_MS, label="Merge", linewidth=3)
-ax1.plot(Number, c_QS, label="Quick", linewidth=3)
+ax1.plot(Number, c_minQS, label="Min_Quick", linewidth=3)
+ax1.plot(Number, c_medQS, label="Median_Quick", linewidth=3)
+ax1.plot(Number, c_randQS, label="Random_Quick", linewidth=3)
 ax1.plot(Number, c_HS, label="Heap", linewidth=3)
 
 #label graph
@@ -63,7 +71,9 @@ ax2.plot(Number, t_IS, label="Insertion", linewidth=3)
 ax2.plot(Number, t_SS, label="Selection", linewidth=3)
 ax2.plot(Number, t_BS, label="Bubble", linewidth=3)
 ax2.plot(Number, t_MS, label="Merge", linewidth=3)
-ax2.plot(Number, t_QS, label="Quick", linewidth=3)
+ax2.plot(Number, t_minQS, label="Min_Quick", linewidth=3)
+ax2.plot(Number, t_medQS, label="Median_Quick", linewidth=3)
+ax2.plot(Number, t_randQS, label="Random_Quick", linewidth=3)
 ax2.plot(Number, t_HS, label="Heap", linewidth=3)
 
 #label graph
