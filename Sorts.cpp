@@ -105,7 +105,7 @@ void InsertionSort(Int* a, Int n){
             a[i+1] = a[i];
             i--;
         }
-    a[i+1] = key;
+        a[i+1] = key;
     }
 }
 //--------------------------------
@@ -153,7 +153,6 @@ void merge(Int* arr, Int l, Int m, Int r){
         arr[i+l] = temp_arr[i]; 
     }
 }
-
 void MergeSort(Int* a, Int lo, Int hi){
     if(lo < hi){
         Int m = lo+(hi-lo)/2;
@@ -208,7 +207,6 @@ void rand_QSort(Int* a, Int p, Int r){
         rand_QSort(a, q + 1, r);
     }
 }
-
 void QuickSort(Int* a, Int p, Int r, const char* type){
     if(type == "min")
         min_QSort(a, p, r);
@@ -230,7 +228,6 @@ void Max_Heapify(Int* a, Int i, Int n){
         Max_Heapify(a, largest, n);
     }
 }
-
 void HeapSort(Int* a, Int n){
    for(Int i = n/2 -1; i >= 0; i--){
        Max_Heapify(a, i, n);
@@ -245,9 +242,9 @@ void Run_All(csvfile& outFile, int n, char op){
     srand(time(0));
     Int a[n], b[n];
 
-    for(int i = 0; i < n; ++i){
-        a[i] = rand() % 100 + 1;
-    } // fill a with random values
+    for(int i = 0; i < n; ++i)
+        a[i] = rand() % 100 + 1; // fill a with random values
+
     switch(op){
         int i;
         case 'b':
@@ -264,10 +261,11 @@ void Run_All(csvfile& outFile, int n, char op){
     }
 
     comp_count = 0; // reset to zero since above setup will rack up some comparisons for insertionsort
+    
     //copy a to b so we can reuse a for all algorithms
     std::copy(a, a+n, b);
 
-    //Do Sorts and count Comparisons and record time
+    //Do Sorts and count Comparisons and record Time
     clock_t total;
     outFile << "Algorithm" << "Number" << "Comparisons" << "Time(mu)" << endrow; // csv file column names
     clock_t time = clock();
@@ -328,8 +326,7 @@ void Run_All(csvfile& outFile, int n, char op){
 int main(int argc, char** argv){
 
     //initialize csv file for output
-    const std::string fileName = "out.csv";
-    csvfile outFile(fileName);
+    csvfile outFile("out.csv");
     std::string input = "r";
     char op;
     const int n = 5000;

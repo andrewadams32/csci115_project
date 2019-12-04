@@ -3,11 +3,10 @@
 if (( $# > 0 ))
     then
     sort=$1
-    echo 'sorting with' $sort
 fi
+echo 'compiling program'
 g++ Sorts.cpp -o sorts
-echo 'program compiled'
+echo 'running prorgam'
 ./sorts $sort
-echo 'prorgam ran'
+echo 'graphing data'
 python sorts.py
-echo 'data graphed'
