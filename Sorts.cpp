@@ -8,6 +8,7 @@
 #include "csv.hpp"
 
 static int comp_count = 0;
+static int arr_access_count = 0;
 
 //Int class to replace int. Allows overloading operators to count operations done
 //------------------------------------
@@ -66,6 +67,7 @@ struct Int{
         return Int(value % b.value);
     }
     operator int() {
+        arr_access_count++;
         return value;
     }
     friend std::ostream& operator<<(std::ostream& os, const Int& val);
@@ -77,11 +79,6 @@ struct Int{
 //----------------------------
 std::ostream& operator<<(std::ostream& os, const Int& val){os << val.value; return os;};
 
-inline void swap(Int* arr, Int a, Int b){
-    Int t = arr[a];
-    arr[a] = arr[b];
-    arr[b] = t;
-}
 inline void swap(Int& a, Int& b){
     Int t = a;
     a = b;
@@ -118,14 +115,14 @@ void SelectionSort(Int* a, Int n){
                 smallest = i;
             }
         }
-        swap(a, j, smallest);
+        swap(a[j], a[smallest]);
     }
 }
 //---------------------------------------------
 void BubbleSort(Int* a, Int n){
     for(Int i = 0; i < n; i++){
         for(Int j = n-1; j > i; j--){
-            if(a[j] < a[j-1]) swap(a, j, j-1);
+            if(a[j] < a[j-1]) swap(a[j], a[j-1]);
         }
     }
 }
@@ -168,19 +165,19 @@ Int Partition(Int* a, Int p, Int r) {
     for (Int j = p; j <= r- 1; j++) {
         if (a[j] <= pivot) { 
             i++;
-            swap(a, i, j); 
+            swap(a[i], a[j]); 
         } 
     } 
-    swap(a, i + 1, r); 
+    swap(a[i + 1], a[r]); 
     return (i + 1); 
 }
 Int R_Partition(Int* a, Int p, Int r){
     Int i = (Int(rand()) % (r-p)) + p;
-    swap(a, i, p);
+    swap(a[i], a[p]);
     return Partition(a, p, r);
 }
 Int median_partition(Int a[], Int lo, Int hi){
-    swap(a, (hi-lo)/2 + lo, lo);
+    swap(a[(hi-lo)/2 + lo], a[lo]);
     return Partition(a, lo, hi);
 }
 Int min_partition(Int a[], Int lo, Int hi){
@@ -260,68 +257,77 @@ void Run_All(csvfile& outFile, int n, char op){
             exit(-1);
     }
 
-    comp_count = 0; // reset to zero since above setup will rack up some comparisons for insertionsort
-    
     //copy a to b so we can reuse a for all algorithms
     std::copy(a, a+n, b);
 
+    comp_count = 0; // reset to zero since above setup will rack up some comparisons for insertionsort
+    arr_access_count = 0;
+
     //Do Sorts and count Comparisons and record Time
     clock_t total;
-    outFile << "Algorithm" << "Number" << "Comparisons" << "Time(mu)" << endrow; // csv file column names
+    outFile << "Algorithm" << "Number" << "Comparisons" << "Accesses" << "Time(ms)" << endrow; // csv file column names
     clock_t time = clock();
     InsertionSort(b, n);
     total = clock() - time;
-    outFile << "InsertionSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
-    comp_count = 0;
+    outFile << "InsertionSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     std::copy(a, a+n, b);
+    comp_count = 0;
+    arr_access_count = 0;
 
     time = clock();
     SelectionSort(b, n);
     total = clock() - time;
-    outFile << "SelectionSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
-    comp_count = 0;
+    outFile << "SelectionSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     std::copy(a, a+n, b);
+    comp_count = 0;
+    arr_access_count = 0;
 
     time = clock();
     BubbleSort(b, n);
     total = clock() - time;
-    outFile << "BubbleSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
-    comp_count = 0;
+    outFile << "BubbleSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     std::copy(a, a+n, b);
+    comp_count = 0;
+    arr_access_count = 0;
 
     time = clock();
     MergeSort(b, 0, n);
     total = clock() - time;
-    outFile << "MergeSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
-    comp_count = 0;
+    outFile << "MergeSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     std::copy(a, a+n, b);
+    comp_count = 0;
+    arr_access_count = 0;
 
     time = clock();
     QuickSort(b, 0, n, "min");
     total = clock() - time;
-    outFile << "Min_QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
-    comp_count = 0;
+    outFile << "Min_QuickSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     std::copy(a, a+n, b);
+    comp_count = 0;
+    arr_access_count = 0;
 
     time = clock();
     QuickSort(b, 0, n, "med");
     total = clock() - time;
-    outFile << "Median_QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
-    comp_count = 0;
+    outFile << "Median_QuickSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     std::copy(a, a+n, b);
+    comp_count = 0;
+    arr_access_count = 0;
 
     time = clock();
     QuickSort(b, 0, n, "rand");
     total = clock() - time;
-    outFile << "Random_QuickSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
-    comp_count = 0;
+    outFile << "Random_QuickSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     std::copy(a, a+n, b);
+    comp_count = 0;
+    arr_access_count = 0;
 
     time = clock();
     HeapSort(b, n);
     total = clock() - time;
-    outFile << "HeapSort" << n << comp_count << (total * 1000 * 1000 / CLOCKS_PER_SEC) << endrow;
+    outFile << "HeapSort" << n << comp_count << arr_access_count << (total * 1000 / CLOCKS_PER_SEC) << endrow;
     comp_count = 0;
+    arr_access_count = 0;
 }
 int main(int argc, char** argv){
 
