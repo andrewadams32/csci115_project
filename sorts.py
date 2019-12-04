@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 if os.environ.get('DISPLAY','') == '':
-    plt.switch_backend('Agg')
+    plt.switch_backend('TkAgg') #Agg for ubuntu
 import numpy as np
 
 #get relative path of csv data file
@@ -75,7 +75,7 @@ ax1.plot(Number, c_HS, label="Heap", linewidth=3)
 ax1.grid(True)
 ax1.set_ylabel("Comparisons")
 ax1.set_xlabel("Input Size")
-ax1.legend(loc="upper left", fontsize="xx-large")
+ax1.legend(loc="upper left", fontsize="x-large")
 
 #plot list of input sizes as x-axis and time taken as y axis for each algorithm
 ax2.plot(Number, t_IS, label="Insertion", linewidth=3)
@@ -91,7 +91,7 @@ ax2.plot(Number, t_HS, label="Heap", linewidth=3)
 ax2.grid(True)
 ax2.set_ylabel("Time(ms)")
 ax2.set_xlabel("Input Size")
-ax2.legend(loc="upper left", fontsize="xx-large")
+ax2.legend(loc="upper left", fontsize="x-large")
 
 #plot list of input sizes as x-axis and time taken as y axis for each algorithm
 ax3.plot(Number, a_IS, label="Insertion", linewidth=3)
@@ -107,7 +107,8 @@ ax3.plot(Number, a_HS, label="Heap", linewidth=3)
 ax3.grid(True)
 ax3.set_ylabel("Array Access")
 ax3.set_xlabel("Input Size")
-ax3.legend(loc="upper left", fontsize="xx-large")
+ax3.legend(loc="upper left", fontsize="x-large")
 
+print("plotting")
 #show graph
 plt.show()

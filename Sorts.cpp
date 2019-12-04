@@ -21,27 +21,27 @@ struct Int{
         ++comp_count;
         return value <= b.value;
     }
-    bool operator<(const Int& b){
+    bool operator<(const Int& b) const {
     //    std::cout << "comparing " << value << " < " << b << "\n";
         ++comp_count;
         return value < b.value;
     }
-    bool operator<(const int b){
+    bool operator<(const int b) const {
     //    std::cout << "comparing " << value << " < " << b << "\n";
         ++comp_count;
         return value < b;
     }
-    bool operator>=(const Int& b){
+    bool operator>=(const Int& b) const {
     //    std::cout << "comparing " << value << " >= " << b << "\n";
         ++comp_count;
         return value >= b.value;
     }
-    bool operator>=(const int b){
+    bool operator>=(const int b) const {
     //    std::cout << "comparing " << value << " >= " << b << "\n";
         ++comp_count;
         return value >= b;
     }
-    bool operator>(const Int& b){
+    bool operator>(const Int& b) const {
     //    std::cout << "comparing " << value << " > " << b << "\n";
         ++comp_count;
         return value > b.value;
@@ -206,11 +206,11 @@ void rand_QSort(Int* a, Int p, Int r){
     }
 }
 void QuickSort(Int* a, Int p, Int r, const char* type){
-    if(type == "min")
+    if(strcmp(type, "min") == 0)
         min_QSort(a, p, r);
-    else if(type == "med")
+    else if(strcmp(type, "med") == 0)
         med_QSort(a, p, r);
-    else if(type == "rand")
+    else if(strcmp(type, "rand") == 0)
         rand_QSort(a, p, r);
     else exit(-1);
 }
@@ -246,7 +246,7 @@ void Run_All(csvfile& outFile, int n, char op){
     switch(op){
         int i;
         case 'b':
-            std::sort(a, a+n, [](Int& a, Int& b){return a > b;}); // backwards sort
+            //std::sort(a, a+n, [&](Int& a, Int& b){return a > b;}); // backwards sort
             break;
         case 's':
             std::sort(a, a+n); // regular sort
