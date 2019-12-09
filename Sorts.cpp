@@ -93,6 +93,7 @@ void PrintArray(Int* a, Int n){
 }
 //-------------------------------
 
+//Sorting Algorithms
 //-------------------------------
 void InsertionSort(Int* a, Int n){
     Int key, i;
@@ -185,21 +186,21 @@ Int min_partition(Int a[], Int lo, Int hi){
     return Partition(a, lo, hi);
 }
 void min_QSort(Int* a, Int p, Int r){
-        if(p < r){
+    if(p < r){
         Int q = min_partition(a, p, r);
         min_QSort(a, p, q - 1);
         min_QSort(a, q + 1, r);
     }
 }
 void med_QSort(Int* a, Int p, Int r){
-        if(p < r){
+    if(p < r){
         Int q = median_partition(a, p, r);
         med_QSort(a, p, q - 1);
         med_QSort(a, q + 1, r);
     }
 }
 void rand_QSort(Int* a, Int p, Int r){
-        if(p < r){
+    if(p < r){
         Int q = R_Partition(a, p, r);
         rand_QSort(a, p, q - 1);
         rand_QSort(a, q + 1, r);
@@ -246,7 +247,7 @@ void Run_All(csvfile& outFile, int n, char op){
     switch(op){
         int i;
         case 'b':
-            //std::sort(a, a+n, [&](Int& a, Int& b){return a > b;}); // backwards sort
+            std::sort(a, a+n, [&](Int& a, Int& b){return a > b;}); // backwards sort
             break;
         case 's':
             std::sort(a, a+n); // regular sort

@@ -5,7 +5,7 @@ if (( $# > 0 ))
     sort=$1
 fi
 echo 'compiling program'
-g++ Sorts.cpp -o sorts
+g++ -std=c++11 Sorts.cpp -o sorts
 echo 'running prorgam'
 ./sorts $sort
 echo 'graphing data'
