@@ -366,7 +366,6 @@ int main(int argc, char** argv){
         std::cin >> op;
     }
     try{
-        Int t[5] = {1,2,3,4,5};
         outFile << "Algorithm" << "Number" << "Comparisons" << "Accesses" << "Time(ms)" << endrow; // csv file column names
         for(int i = 100; i <= n; i+=100){
             Run_All(outFile, i, op);    // run all sorts, collecting efficiency data
