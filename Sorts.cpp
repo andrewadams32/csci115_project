@@ -91,6 +91,12 @@ void PrintArray(Int* a, Int n){
         std::cout << a[i] << " ";
     }
 }
+bool sorted(Int* a, int n){
+    for(Int i = 0; i < n-1; ++i)
+        if(a[i] > a[i+1])
+            return false;
+    return true;
+}
 //-------------------------------
 
 //Sorting Algorithms
@@ -129,29 +135,40 @@ void BubbleSort(Int* a, Int n){
     }
 }
 //--------------------------------------------
-void merge(Int* arr, Int l, Int m, Int r){
-    Int temp_arr[(int)r-l+1];
-    Int ms=0,ls=l,rs=m+1;
-    while(true){
-        if(arr[ls]<=arr[rs]) 
-            temp_arr[++ms] = arr[++ls];
-        else if(arr[ls]>arr[rs]) 
-            temp_arr[++ms] = arr[++rs];
-        if(ls>m) {
-            while(rs<=r) 
-                temp_arr[++ms]=arr[++rs]; 
-            break;
-        }
-        else if(rs>r) {
-            while(ls<=m) 
-                temp_arr[++ms]=arr[++ls]; 
-            break;
-        }
-    }
-    for(Int i=0;i<r-l+1;++i) {
-        arr[i+l] = temp_arr[i]; 
-    }
-}
+void merge(Int arr[], Int l, Int m, Int r) { 
+    Int i, j, k; 
+    int n1 = m - l + 1; 
+    int n2 =  r - m;
+    Int L[n1], R[n2]; 
+    for (i = 0; i < n1; ++i) 
+        L[i] = arr[l + i]; 
+    for (j = 0; j < n2; ++j) 
+        R[j] = arr[m + 1+ j]; 
+    i = 0;
+    j = 0;
+    k = l;
+    while (i < n1 && j < n2){ 
+        if (L[i] <= R[j]) { 
+            arr[k] = L[i]; 
+            ++i; 
+        } 
+        else{ 
+            arr[k] = R[j]; 
+            ++j; 
+        } 
+        ++k; 
+    } 
+    while (i < n1) { 
+        arr[k] = L[i]; 
+        ++i; 
+        ++k; 
+    } 
+    while (j < n2) { 
+        arr[k] = R[j]; 
+        ++j; 
+        ++k; 
+    } 
+} 
 void MergeSort(Int* a, Int lo, Int hi){
     if(lo < hi){
         Int m = lo+(hi-lo)/2;
@@ -164,7 +181,7 @@ void MergeSort(Int* a, Int lo, Int hi){
 Int Partition(Int* a, Int p, Int r) { 
     Int pivot = a[r];
     Int i = (p - 1);
-    for (Int j = p; j <= r- 1; ++j) {
+    for (Int j = p; j < r; ++j) {
         if (a[j] <= pivot) { 
             ++i;
             swap(a[i], a[j]); 
@@ -207,11 +224,11 @@ void rand_QSort(Int* a, Int p, Int r){
     }
 }
 void QuickSort(Int* a, Int p, Int r, const char* type){
-    if(strcmp(type, "min") == 0)
+    if(type == "min")
         min_QSort(a, p, r);
-    else if(strcmp(type, "med") == 0)
+    else if(type == "med")
         med_QSort(a, p, r);
-    else if(strcmp(type, "rand") == 0)
+    else if(type == "rand")
         rand_QSort(a, p, r);
     else exit(-1);
 }
@@ -349,6 +366,7 @@ int main(int argc, char** argv){
         std::cin >> op;
     }
     try{
+        Int t[5] = {1,2,3,4,5};
         outFile << "Algorithm" << "Number" << "Comparisons" << "Accesses" << "Time(ms)" << endrow; // csv file column names
         for(int i = 100; i <= n; i+=100){
             Run_All(outFile, i, op);    // run all sorts, collecting efficiency data
